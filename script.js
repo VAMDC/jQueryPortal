@@ -69,7 +69,7 @@ $(document).ready(function(){
 
 $("#waveslider").noUiSlider({
     start: [400, 1000],
-    step: 100,
+    step: 1,
     margin: 1,
     connect: true,
     orientation: 'horizontal',
