@@ -42,11 +42,16 @@ $(document).ready(function(){
             beforeSend: function(xhr){xhr.setRequestHeader('VAMDC', 'vamdc');},
             });
         request.done(function(data, textStatus, jqXHR ){
-            $('table#statab').html('<tr><th>Element</th><th>Ionization</th><th>State ID</th><th>State Energy</th></tr>');
+            $('table#statab').html('<tr><th>Element</th><th>Ionization</th><th>State ID</th><th>State Energy</th><th>Description</th></tr>');
             $('table#transtab').html('<tr><th>Wavelength</th><th>log(gf)</th><th>Lower State</th><th>Upper State</th></tr>');
             $(data).find('AtomicState').each(function(index){
-                $('table#statab').append('<tr><td>'+$(this).parents(
-'Atom').find('ElementSymbol').text()+'</td><td>'+$(this).parents('Atom').find('IonCharge').text()+'</td><td>'+$(this).attr('stateID')+'</td><td>'+$(this).find('StateEnergy Value').text()+'</td></td>');
+                $('table#statab').append('<tr><td>'+
+                $(this).parents('Atom').find('ElementSymbol').text()+
+                '</td><td>'+$(this).parents('Atom').find('IonCharge').text()+
+                '</td><td>'+$(this).attr('stateID')+'</td><td>'+
+                $(this).find('StateEnergy Value').text()+'</td><td>'+
+                $(this).find('Description').text()+'</td></tr>'
+                );
 
             });
             $(data).find('RadiativeTransition').each(function(index){
