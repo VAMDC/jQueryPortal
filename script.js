@@ -1,6 +1,6 @@
 $(document).ready(function(){
     var url = 'http://vald.astro.uu.se/atoms-12.07/tap/sync';
-    $('#selel').html('H');
+    $('#selel').html('Li');
 
     $('#go').click(function(){
         var element = $('#selel').html();
