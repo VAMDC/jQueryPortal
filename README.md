@@ -11,3 +11,4 @@ We use and are thankful for the following libraries:
 * jQuery, http://jquery.com
 * Bootstrap, http://getbootstrap.com
 * jQuery Periodic Table, http://www.ggshow.com/jquery-periodic-table-of-elements/
+* noUiSlider, http://refreshless.com/nouislider/download
