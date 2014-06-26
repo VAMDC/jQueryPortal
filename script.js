@@ -50,7 +50,7 @@ $(document).ready(function(){
 
             });
             $(data).find('RadiativeTransition').each(function(index){
-                $('table#transtab').append('<tr><td>'+$(this).find('Wavelength Value').text()+'</td><td>'+$(this).find('Log10WeightedOscillatorStrength Value').text()+'</td><td>'+$(this).find('LowerStateRef').text()+'</td><td>'+$(this).find('UpperStateRef').text()+'</td></tr>');
+                $('table#transtab').append('<tr><td>'+$(this).find('Wavelength Value').first().text()+'</td><td>'+$(this).find('Log10WeightedOscillatorStrength Value').text()+'</td><td>'+$(this).find('LowerStateRef').text()+'</td><td>'+$(this).find('UpperStateRef').text()+'</td></tr>');
 
             });
         });
