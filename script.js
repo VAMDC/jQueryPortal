@@ -42,8 +42,14 @@ $(document).ready(function(){
             beforeSend: function(xhr){xhr.setRequestHeader('VAMDC', 'vamdc');},
             });
         request.done(function(data, textStatus, jqXHR ){
+            $('table#statab').html('');
+            $('table#transtab').html('');
+            $(data).find('Atom').each(function(index){
+                $('table#statab').append('<tr><td>'+$(this).find('ElementSymbol').text()+'</td><td>'+$(this).find('ElementSymbol').text()+'</td></td>');
+
+            });
             $(data).find('Wavelength Value').each(function(index){
-                $('table#tab1').append('<tr><td>'+$(this).text()+'</tr></td>')
+                $('table#transtab').append('<tr><td>'+$(this).text()+'</tr></td>');
 
             });
         });
