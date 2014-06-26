@@ -42,14 +42,15 @@ $(document).ready(function(){
             beforeSend: function(xhr){xhr.setRequestHeader('VAMDC', 'vamdc');},
             });
         request.done(function(data, textStatus, jqXHR ){
-            $('table#statab').html('');
-            $('table#transtab').html('');
-            $(data).find('Atom').each(function(index){
-                $('table#statab').append('<tr><td>'+$(this).find('ElementSymbol').text()+'</td><td>'+$(this).find('ElementSymbol').text()+'</td></td>');
+            $('table#statab').html('<tr><th>Element</th><th>Ionization</th><th>State ID</th><th>State Energy</th></tr>');
+            $('table#transtab').html('<tr><th>Wavelength</th><th>log(gf)</th><th>Lower State</th><th>Upper State</th></tr>');
+            $(data).find('AtomicState').each(function(index){
+                $('table#statab').append('<tr><td>'+$(this).parents(
+'Atom').find('ElementSymbol').text()+'</td><td>'+$(this).parents('Atom').find('IonCharge').text()+'</td><td>'+$(this).attr('stateID')+'</td><td>'+$(this).find('StateEnergy Value').text()+'</td></td>');
 
             });
-            $(data).find('Wavelength Value').each(function(index){
-                $('table#transtab').append('<tr><td>'+$(this).text()+'</tr></td>');
+            $(data).find('RadiativeTransition').each(function(index){
+                $('table#transtab').append('<tr><td>'+$(this).find('Wavelength Value').text()+'</td><td>'+$(this).find('Log10WeightedOscillatorStrength Value').text()+'</td><td>'+$(this).find('LowerStateRef').text()+'</td><td>'+$(this).find('UpperStateRef').text()+'</td></tr>');
 
             });
         });
