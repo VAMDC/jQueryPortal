@@ -8,7 +8,7 @@ $(document).ready(function(){
             beforeSend: function(xhr){xhr.setRequestHeader('VAMDC', 'vamdc');},
             });
         request.done(function(data, textStatus, jqXHR ){
-            var header = jqXHR.getResponseHeader('X-VAMDC-COUNT-ATOMS')
+            var header = jqXHR.getResponseHeader('VAMDC-COUNT-ATOMS')
             var header = jqXHR.getAllResponseHeaders()
             $('ul#results').append('<li>'+ header +'</li>')
         });
@@ -17,8 +17,9 @@ $(document).ready(function(){
         });
     });
 
-    $('#infopop').click(function(){
-        $('#infopop').popover('toggle')
-    });
+    function select_element(element){
+                element.ATOMIC_NUMBER + ' : ' + element.NAME);
+            }
+    $('#my_periodic').pte({ data : 'jquery.pte.lite.json', config : {size:34,spacing:2,x:60}, clickHandler : select_element });
 
 });
