@@ -21,6 +21,8 @@
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <script type='text/javascript' src='jquery.pte.min.js'></script>
     <script type='text/javascript' src='jquery.nouislider.min.js'></script>
+    <script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/flot/0.8.2/jquery.flot.min.js'></script>
+
     <script type='text/javascript' src='script.js'></script>
 
   <body>
@@ -29,8 +31,14 @@
 
 
       <div class="page-header">
-        <h1>Transitions</h1>
+        <h1>Radiative Transitions</h1>
       </div>
+      <p>
+          This is an application that makes use of the VAMDC infrastructure
+          by providing a custom interface for selecting data from the VALD data
+          node and hand it to a processor service that calculates line opacities.
+          The results are then shown as a spectrum.
+      </p>
       <div class="row">
         <div class="col-sm-10">
           <div class="panel panel-default">
@@ -42,21 +50,21 @@
                 <div id="selel" class="btn btn-success btn-lg" disabled='disabled' style="margin-left:100px"></div>
                 <div id="my_periodic"></div>
 
-                <label for="lower">Lower bound &Aring;</label>
+                <label for="lower">Wavelength range, lower bound (&Aring;)</label>
                 <input name="lower" id="lower-input">
                 <br/>
                 <br/>
                     <div id="waveslider"></div>
                 <br/>
-                <label for="upper">Upper bound &Aring;</label>
+                <label for="upper">Wavelength range, upper bound (&Aring;)</label>
                 <input name="upper" id="upper-input">
             </div>
           </div>
 
-                <button id="go" type="button" class="btn btn-primary">Get statistics!</button>
+                <button id="go" type="button" class="btn btn-primary">Count transitions</button>
                 <br/>
                 <br/>
-          <div class="panel panel-default">
+          <div class="panel panel-default" id="statsbox">
             <div class="panel-heading">
               <h3 class="panel-title">Statistics</h3>
             </div>
@@ -64,20 +72,21 @@
                 <ul id="results"></ul>
             </div>
           </div>
-
-                <button id="fetch" type="button" class="btn btn-primary">Fetch last selection and show!</button>
+                <div id="buttons2">
+                <button id="plotbtn" type="button" class="btn btn-primary">Plot opacity spectrum</button>
+                or
+                <button id="fetch" type="button" class="btn btn-primary">Show transitions for last selection</button>
+            </div>
                 <br/>
-                <br/>
-          <div class="panel panel-default">
+          <div class="panel panel-default" id="plotbox">
             <div class="panel-heading">
-              <h3 class="panel-title">States</h3>
+              <h3 class="panel-title">Opacity spectrum</h3>
             </div>
             <div class="panel-body">
-                <table id="statab" class="table">
-                </table>
+                <div id="plot1" style="width:900px;height:300px"></div>
             </div>
           </div>
-          <div class="panel panel-default">
+          <div class="panel panel-default" id="transitionsbox">
             <div class="panel-heading">
               <h3 class="panel-title">Transitions</h3>
             </div>
@@ -86,9 +95,19 @@
                 </table>
             </div>
           </div>
+          <div class="panel panel-default" id="statesbox">
+            <div class="panel-heading">
+              <h3 class="panel-title">States</h3>
+            </div>
+            <div class="panel-body">
+                <table id="statab" class="table">
+                </table>
+            </div>
+          </div>
 
         </div><!-- /.col-sm-8 -->
       </div>
+      <p style="padding-bottom:1000px"></p>
     </div> <!-- /container -->
   </body>
 </html>
