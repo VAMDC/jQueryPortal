@@ -95,10 +95,43 @@ $("#waveslider").noUiSlider({
             })
         ],
         format: {
-            mark: ',',
             decimals: 0,
         }
     }
+});
+var customToolTip = $.Link({
+    target: '-tooltip-<div class="tooltip top" role="tooltip"></div>',
+    method: function ( value ) {
+        // The tooltip HTML is 'this', so additional
+        // markup can be inserted here.
+        $(this).html('<div class="tooltip-arrow"></div>'+
+            '<div class="tooltip-inner">'+value+'</div>'
+        );
+    }
+});
+
+$("#ionslider").noUiSlider({
+    start: [0, 999],
+    step: 1,
+    connect: true,
+    orientation: 'horizontal',
+    behaviour: 'tap-drag',
+    range: {
+        'min': 0,
+        '10%': 1,
+        '20%': 2,
+        '30%': 3,
+        '40%': 4,
+        '50%': 5,
+        '60%': 6,
+        '70%': 7,
+        '80%': 8,
+        'max': 999
+    },
+    serialization: {
+        lower: [ customToolTip ],
+        upper: [ customToolTip ]
+    },
 });
 
 });
