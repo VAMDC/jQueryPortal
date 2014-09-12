@@ -1,6 +1,6 @@
 $(document).ready(function(){
-    var url = 'http://vald.astro.uu.se/atoms-12.07/tap/sync';
-    $('#selel').html('Li');
+    var valdurl = 'http://vald.astro.uu.se/atoms-12.07/tap/sync';
+    $('#selel').html('Be');
     function hideall(){
         $('#transitionsbox').hide();
         $('#statesbox').hide();
@@ -15,11 +15,14 @@ $(document).ready(function(){
         var element = $('#selel').html();
         var lowave = $('#lower-input').val()
         var upwave = $('#upper-input').val()
+        var querystring = 'select all where AtomSymbol = \''+element+
+            '\' and RadTranswavelength < '+ upwave +
+            ' and RadTranswavelength > ' + lowave;
+        $('#querystring').text(querystring);
+
         var request = $.ajax({
-            url: url,
-            data: {'QUERY':'select all where AtomSymbol = \''+element+
-                '\' and RadTranswavelength < '+ upwave +
-                ' and RadTranswavelength > ' + lowave},
+            url: valdurl,
+            data: {'QUERY':querystring},
             type: "HEAD",
             beforeSend: function(xhr){xhr.setRequestHeader('VAMDC', 'vamdc');},
             });
@@ -65,12 +68,17 @@ $(document).ready(function(){
 
     $('#plotbtn').click(function(){
         hideall();
-        $.ajax({
-            url:'http://localhost:8001/specsynth/result/spec_21.json',
-            type:"GET",
+        var queryurl=valdurl + '?QUERY=' + escape($('#querystring').text());
+        //console.log(queryurl);
+        var request = $.ajax({
+            //url:'http://localhost:8001/specsynth/result/spec_21.json',
+            url:'http://localhost:8001/specsynth/service',
+            type:"POST",
+            data: {'url':queryurl},
             dataType: "json",
 			success: PlotData,
         });
+        $('#plot1').empty();
         $('#plotbox').show(200);
         $('html, body').animate({scrollTop: $("#go").offset().top}, 1000);
     });
@@ -81,6 +89,7 @@ $(document).ready(function(){
     var plot = $.plot(placeholder, data, options);
 
     function PlotData(rdata){
+        data = [];
         for (var i = 0; i < rdata.length; i++) {
             data.push([rdata[i][0],0.0])
             data.push(rdata[i]);
@@ -114,7 +123,7 @@ $(document).ready(function(){
         var lowave = $('#lower-input').val()
         var upwave = $('#upper-input').val()
         var request = $.ajax({
-            url: url,
+            url: valdurl,
             data: {'QUERY':'select all where AtomSymbol = \''+element+
                 '\' and RadTranswavelength < '+ upwave +
                 ' and RadTranswavelength > ' + lowave},
@@ -156,7 +165,7 @@ $(document).ready(function(){
     $('#my_periodic').pte({ data : 'jquery.pte.lite.json', config : {size:34,spacing:2,x:60}, clickHandler : select_element });
 
 $("#waveslider").noUiSlider({
-    start: [400, 1000],
+    start: [500, 1650],
     step: 1,
     margin: 1,
     connect: true,
