@@ -22,12 +22,13 @@
     <script type='text/javascript' src='jquery.pte.min.js'></script>
     <script type='text/javascript' src='jquery.nouislider.min.js'></script>
     <script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/flot/0.8.2/jquery.flot.min.js'></script>
+    <script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/flot/0.8.2/jquery.flot.selection.min.js'></script>
 
     <script type='text/javascript' src='script.js'></script>
 
   <body>
 
-    <div class="container" role="main">
+    <div class="container" role="main" style="width:850px">
 
 
       <div class="page-header">
@@ -40,7 +41,7 @@
           The results are then shown as a spectrum.
       </p>
       <div class="row">
-        <div class="col-sm-10">
+        <div class="col-sm-10" style="width:100%">
           <div class="panel panel-default">
             <div class="panel-heading">
               <h3 class="panel-title">Select element and wavelength range</h3>
@@ -83,7 +84,7 @@
               <h3 class="panel-title">Opacity spectrum</h3>
             </div>
             <div class="panel-body">
-                <div id="plot1" style="width:900px;height:300px"></div>
+                <div id="plot1" style="width:780px;height:300px"></div>
             </div>
           </div>
           <div class="panel panel-default" id="transitionsbox">

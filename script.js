@@ -45,16 +45,68 @@ $(document).ready(function(){
         });
     });
 
+    var options = {
+			lines: {
+				show: true,
+			},
+			points: {
+				show: true
+			},
+			xaxis: {
+				//tickDecimals: 0,
+				//tickSize: 1,
+                //autoscaleMargin: 0.002
+			},
+        selection: {
+				mode: "x"
+			}
+		};
+
+
     $('#plotbtn').click(function(){
         hideall();
-        $.plot($("#plot1"), [ [[0.2, 0.3], [0.9, 0.9]] ],
-            { yaxis: { max: 1 } ,
-              show: true,
-              fill: true,
-            });
+        $.ajax({
+            url:'http://localhost:8001/specsynth/result/spec_21.json',
+            type:"GET",
+            dataType: "json",
+			success: PlotData,
+        });
         $('#plotbox').show(200);
         $('html, body').animate({scrollTop: $("#go").offset().top}, 1000);
     });
+
+
+    var placeholder = $("#plot1");
+    var data = [];
+    var plot = $.plot(placeholder, data, options);
+
+    function PlotData(rdata){
+        for (var i = 0; i < rdata.length; i++) {
+            data.push([rdata[i][0],0.0])
+            data.push(rdata[i]);
+            data.push([rdata[i][0],0.0])
+        }
+        plot = $.plot(placeholder, [data], options);
+    }
+
+	placeholder.bind("plotselected", function (event, ranges) {
+
+		$("#selection").text(ranges.xaxis.from.toFixed(1) + " to " + ranges.xaxis.to.toFixed(1));
+
+		$.each(plot.getXAxes(), function(_, axis) {
+			var opts = axis.options;
+			opts.min = ranges.xaxis.from;
+			opts.max = ranges.xaxis.to;
+		});
+		plot.setupGrid();
+		plot.draw();
+		plot.clearSelection();
+    });
+
+	placeholder.dblclick(function () {
+		plot = $.plot(placeholder, [data], options);
+	});
+
 
     $('#fetch').click(function(){
         hideall();
