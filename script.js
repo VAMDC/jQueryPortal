@@ -1,5 +1,6 @@
 $(document).ready(function(){
     var valdurl = 'http://vald.astro.uu.se/atoms-12.07/tap/sync';
+    var processurl = 'http://vamdc2.tmy.se/newproc/specsynth/service';
     $('#selel').html('Be');
     function hideall(){
         $('#transitionsbox').hide();
@@ -72,7 +73,8 @@ $(document).ready(function(){
         //console.log(queryurl);
         var request = $.ajax({
             //url:'http://localhost:8001/specsynth/result/spec_21.json',
-            url:'http://localhost:8001/specsynth/service',
+            //url:'http://localhost:8001/specsynth/service',
+            url:processurl,
             type:"POST",
             data: {'url':queryurl},
             dataType: "json",
