@@ -1,7 +1,7 @@
 $(document).ready(function(){
     var valdurl = 'http://vald.astro.uu.se/atoms-12.07/tap/sync';
     var processurl = 'http://vamdc.tmy.se/12.07/specsynth/service';
-    $('#selel').html('Be');
+    $('#selel').html('Na');
     function hideall(){
         $('#transitionsbox').hide();
         $('#statesbox').hide();
